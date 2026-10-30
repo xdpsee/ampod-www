@@ -72,12 +72,28 @@
   .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
   .nav-links a:hover { color: var(--text); }
   .nav-cta {
-    background: var(--accent); color: #fff;
+    position: relative; isolation: isolate;
+    background: linear-gradient(160deg, rgba(255,95,75,0.92), rgba(255,59,48,0.62)); color: #fff;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255,255,255,0.28);
     padding: 8px 18px; border-radius: 999px;
     font-size: 0.85rem; font-weight: 600; text-decoration: none;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,0.65),
+      inset 0 -6px 14px rgba(255,59,48,0.3),
+      0 6px 24px rgba(255,59,48,0.3);
     transition: transform 0.2s, box-shadow 0.2s;
   }
-  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(255,59,48,0.6); }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), inset 0 -6px 14px rgba(255,59,48,0.35), 0 8px 30px rgba(255,59,48,0.5); }
+  .nav-cta::before {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(120deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.08) 28%, transparent 45%);
+    pointer-events: none;
+    z-index: -1;
+  }
   .nav-tag {
     position: absolute; left: 50%; transform: translateX(-50%);
     color: var(--muted); font-size: 0.85rem; letter-spacing: 0.02em;
