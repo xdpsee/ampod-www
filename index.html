@@ -124,6 +124,14 @@
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--text); }
+  .nav-toggle {
+    display: none;
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--text); font-size: 18px; line-height: 1;
+    cursor: pointer;
+  }
   .nav-cta {
     position: relative; isolation: isolate;
     background: linear-gradient(160deg, rgba(255,95,75,0.92), rgba(255,59,48,0.62)); color: #fff;
@@ -443,7 +451,27 @@
   /* 响应式：窄屏收窄边距 */
   @media (max-width: 900px) {
     :root { --gutter: 28px; --section-gap: 72px; }
-    .nav-links { display: none; }
+    .nav-toggle { display: grid; place-items: center; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 60px; left: 0; right: 0;
+      flex-direction: column; gap: 0;
+      padding: 8px var(--gutter) 16px;
+      background: rgba(8,4,5,0.92);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+    .nav-links.open { display: flex; }
+    .nav-cta { margin-left: auto; margin-right: 10px; }
+    .nav-links a {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 0.95rem;
+    }
+    .nav-links a:last-child { border-bottom: none; }
     .hero { padding-top: 76px; }
     .privacy { padding: 44px 24px; }
   }
@@ -474,6 +502,7 @@
       <a href="#download">下载</a>
     </div>
     <a href="https://apps.apple.com/cn/app/ampod%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/id6504459434" class="nav-cta">免费获取</a>
+    <button class="nav-toggle" id="navToggle" aria-label="打开菜单" aria-expanded="false">☰</button>
   </div>
 </nav>
 
@@ -587,6 +616,20 @@
 </footer>
 
 <script>
+  // 移动端菜单
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.querySelector('.nav-links');
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open);
+    navToggle.textContent = open ? '✕' : '☰';
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.textContent = '☰';
+  }));
+
   // 滚动进场
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
