@@ -2,6 +2,9 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AMPod — 纯净 · 免费 · 无广告的 iOS Hi-Res 音乐播放器</title>
 <meta name="description" content="AMPod 是一款永久免费、无广告、不收集数据的 iOS 本地音乐播放器，支持 MP3、FLAC、APE、M4A、WV 等格式，内置 10 段均衡器、7 种可视化效果和主题切换。">
@@ -174,11 +177,21 @@
   .stat .num em { font-style: normal; color: var(--accent); -webkit-text-fill-color: var(--accent); }
   .stat .label { font-size: 0.82rem; color: var(--muted); margin-top: 4px; }
 
-  /* 播放器展示 */
+  /* 截图展示 */
   .showcase {
     position: relative; z-index: 1;
     padding-bottom: var(--section-gap);
-    display: flex; justify-content: center;
+  }
+  .shots {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .shots img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1020 / 2100;
+    object-fit: cover;
   }
   .player {
     width: min(340px, 100%);
@@ -372,6 +385,7 @@
     :root { --gutter: 20px; --section-gap: 56px; }
     .hero { padding-top: 56px; }
     .grid { grid-template-columns: 1fr; }
+    .shots { grid-template-columns: repeat(2, 1fr); }
     .privacy { padding: 36px 20px; }
   }
   @media (prefers-reduced-motion: reduce) {
@@ -417,7 +431,12 @@
 
 <!-- 播放器展示 -->
 <div class="showcase container reveal">
-    <img src="banner.png" style="height: 540px;"/>
+  <div class="shots">
+    <img src="snapshots/0.png" alt="AMPod 播放界面截图" loading="lazy">
+    <img src="snapshots/1.png" alt="AMPod 歌曲库截图" loading="lazy">
+    <img src="snapshots/2.png" alt="AMPod 均衡器截图" loading="lazy">
+    <img src="snapshots/3.png" alt="AMPod 可视化效果截图" loading="lazy">
+  </div>
 </div>
 
 <!-- 功能 -->
